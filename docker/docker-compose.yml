@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  app:
+    container_name: ${APP_NAME}-app
+    image: node:16-alpine
+    volumes:
+      - type: bind
+        source: ./../
+        target: /app
+      - type: volume
+        source: nodemodules
+        target: /app/node_modules
+        volume:
+          nocopy: true
+    working_dir: /app
+    command: npm run dev
+    ports:
+      - '${PORT}:${PORT}'
+    env_file:
+      - ./../.env
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:12.0-alpine
+    container_name: ${APP_NAME}-db
+    volumes:
+      - './../pgdata:/var/lib/postgresql/data/pgdata'
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      TZ: 'America/Santiago'
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}' ]
+      interval: 5s
+      timeout: 1s
+      retries: 5
+volumes:
+  nodemodules:
