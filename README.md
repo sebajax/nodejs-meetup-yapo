@@ -1,7 +1,10 @@
 # nodejs-meetup-yapo
+
 Building my first Nodejs API using a Serverless Architecture
 
 ![alt text](./nodejs_logo.png)
+
+![alt text](./nodejs_meetup_yapo.png)
 
 Yapo - Building my first Nodejs API using Yapo Node Lite Skeleton and a Serverless Architecture.
 
@@ -116,4 +119,3 @@ Unit testing with coverage:
 Unit testing on dist build with coverage:
 
     npm run coverage_dist
-
