@@ -1,29 +1,17 @@
-name: "CI/CD"
+name: Deploy
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - master
 
 jobs:
-  deploy:
-    runs-on: "ubuntu-latest"
+  build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: "Deploy the web dyno"
-        uses: "akhileshns/heroku-deploy@v3.12.12"
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          docker_heroku_process_type: web
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: nodejs-meetup-yapo
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          justlogin: true
-
-      - name: "Login to heroku registry"
-        run: heroku container:login
-
-      - name: "Build and push to heroku registry"
-        run: heroku container:push web --app nodejs-meetup-yapo
-
-      - name: "Releases the container"
-        run: heroku container:release web --app nodejs-meetup-yapo
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "nodejs-meetup-yapo" #Must be unique in Heroku
+          heroku_email: "sebastian.ituarte@gmail.com"
