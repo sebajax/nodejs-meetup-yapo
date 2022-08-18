@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run clean && babel ./src --out-dir dist && babel ./migrations --out-dir dist/migrations",
     "clean": "rm -rf ./dist && mkdir dist",
-    "start": "node ./dist/app.js",
+    "start": "nodemon --exec babel-node ./src/app.js",
     "dev": "nodemon --exec babel-node ./src/app.js",
     "test": "mocha --require @babel/register src/tests --recursive",
     "test_dist": "mocha dist/tests --recursive",
