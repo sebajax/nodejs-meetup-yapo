@@ -7,15 +7,15 @@ import logger from '../log/logger';
  * create a connection to the database
  */
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  process.env.DATABASE_URL,
   {
     logging: (msg) => logger.debug(msg),
-    host: process.env.DB_HOST,
     dialect: 'postgres',
     dialectOptions: {
-      socketPath: process.env.DB_SOCKET || null,
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
     },
     pool: {
       max: parseInt(process.env.DB_POOL_MAX, 10) || 5,
