@@ -1,6 +1,6 @@
 # nodejs-meetup-yapo
 
-Building my first Nodejs API using a Serverless Architecture
+Building Nodejs API using a Serverless Architecture
 
 ![alt text](./nodejs_logo.png)
 
